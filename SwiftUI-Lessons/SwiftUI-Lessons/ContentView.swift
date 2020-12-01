@@ -12,12 +12,20 @@ struct ContentView: View {
     let pets = ["Doggie", "Cathy", "Tweetie", "Bobina", "Feeshy"]
     
     var body: some View {
-        List {
+        List { //UITableView
             ForEach(pets, id: \.self) {
                 Text($0)
             }
-            Text("Hello, world!")
-                .padding()
+        }
+        
+        ScrollView { //UIScrollView
+            HStack {
+                ForEach(pets, id: \.self) {
+                    Text($0)
+                        .bold()
+                        .strikethrough()
+                }
+            }
         }
     }
 }
