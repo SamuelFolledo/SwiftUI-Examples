@@ -52,19 +52,23 @@ struct ContentView_Previews: PreviewProvider {
         Group {
             ContentView()
                 .previewDevice("iPhone 8")
+                .environment(\.sizeCategory, .accessibilityExtraExtraLarge) //preview in zoomed mode
+                .environment(\.colorScheme, .dark) //preview in dark mode
             ContentDetailView(name: "")
                 .previewDevice("iPhone 8")
+                .environment(\.sizeCategory, .accessibilityExtraExtraLarge)
+                .environment(\.colorScheme, .dark)
         }
     }
 }
 
 struct ContentDetailView : View {
-    var name: String?
+    var name: String!
     
     var body: some View {
         NavigationView {
             VStack {
-                Text("Restaurant: \(name ?? "No Name")")
+                Text("Restaurant: \(name). In this restaurant, we like to serve well")
                     .font(Font.system(.title, design: .rounded))
                     .foregroundColor(.primary) //black and white when dark mode
                     .truncationMode(.middle)
@@ -73,7 +77,7 @@ struct ContentDetailView : View {
                     .background(Color.gray)
                     .border(Color.black, width: 3)
             }
-            .navigationBarTitle("\(name ?? "Restaurant") Details")
+            .navigationBarTitle("\(name) Details")
             .navigationBarHidden(false)
         }
     }
