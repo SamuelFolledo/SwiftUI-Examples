@@ -15,7 +15,7 @@ struct ContentView: View {
         NavigationView {
             List () { //UITableView
                 ForEach(pets, id: \.self) { pet in
-                    NavigationLink(destination: ContentViewB(name: pet)) {
+                    NavigationLink(destination: ContentDetailView(name: pet)) {
                         Text(pet)
                     }
                 }
@@ -52,21 +52,28 @@ struct ContentView_Previews: PreviewProvider {
         Group {
             ContentView()
                 .previewDevice("iPhone 8")
-            ContentViewB(name: "")
+            ContentDetailView(name: "")
                 .previewDevice("iPhone 8")
         }
     }
 }
 
-struct ContentViewB : View {
+struct ContentDetailView : View {
     var name: String?
     
     var body: some View {
         NavigationView {
             VStack {
                 Text("Restaurant: \(name ?? "No Name")")
+                    .font(Font.system(.title, design: .rounded))
+                    .foregroundColor(.primary) //black and white when dark mode
+                    .truncationMode(.middle)
+                    .multilineTextAlignment(.center)
+                    .padding()
+                    .background(Color.gray)
+                    .border(Color.black, width: 3)
             }
-            .navigationBarTitle("ContentViewB")
+            .navigationBarTitle("\(name ?? "Restaurant") Details")
             .navigationBarHidden(false)
         }
     }
