@@ -7,28 +7,26 @@
 
 import SwiftUI
 
-struct ScrollViews: View {
+struct Book: Identifiable {
+    var id = UUID()
+    var title: String
+    var imageName: String
     
-    struct Book: Identifiable {
-      var id = UUID()
-      var title: String
-      var imageName: String
-    }
-    
-    let demoBooks = [
+    static let demoBooks = [
         Book(title: "Swift UI", imageName: "SwiftUI"),
         Book(title: "RxSwift: Reactive Programming with Swift", imageName: "RxSwift"),
         Book(title: "Server Side Swift", imageName: "Vapor"),
         Book(title: "ARKit by Tutorials", imageName: "ARKit"),
         Book(title: "Metal by Tutorials", imageName: "Metal")
     ]
+}
+
+struct ScrollViews: View {
     
     var body: some View {
         ZStack {
             ScrollView(.horizontal, showsIndicators: false) {
-                
                 HStack {
-                    
                     ForEach(Book.demoBooks) { book in
                         GeometryReader { proxy in
                             VStack {
@@ -45,18 +43,11 @@ struct ScrollViews: View {
                                     .scaledToFit()
                                     .shadow(color: .gray, radius: 20)
                             }
-                            // In the demo we type:
-                            // .frame(width: min(proxy.size.width + proxy.frame(in: .global).midX,
-                            // However you should substitute the `min` for a `max` and the `+` for `-`
-                            // Like so 😻
-                            .frame(width: max(proxy.size.width - proxy.frame(in: .global).midX, proxy.size.width),
-                                   height: proxy.size.height - 50)
-                            
-                            
+                            .frame(width: max(proxy.size.width - proxy.frame(in: .global).midX, proxy.size.width), height: proxy.size.height - 50)
                             .background(Image(book.imageName)
                                             .resizable()
                                             .scaledToFill()
-                                            .overlay(Color.rayWenderlichGreen)
+                                            .overlay(Color.green)
                                             .blendMode(.multiply)
                                             .blur(radius: 1))
                             
@@ -74,8 +65,6 @@ struct ScrollViews: View {
                 }
             }
             Spacer()
-            /// On the lecture we use this modifier - it is no longer required
-            //      .layoutPriority(1)
         }
         .background(Color.black)
         .edgesIgnoringSafeArea(.all)
@@ -85,5 +74,6 @@ struct ScrollViews: View {
 struct ScrollViews_Previews: PreviewProvider {
     static var previews: some View {
         ScrollViews()
+            .previewDevice("iPhone 8")
     }
 }
