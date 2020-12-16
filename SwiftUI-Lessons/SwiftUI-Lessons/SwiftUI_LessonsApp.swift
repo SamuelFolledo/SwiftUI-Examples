@@ -11,7 +11,7 @@ import SwiftUI
 struct SwiftUI_LessonsApp: App {
     var body: some Scene {
         WindowGroup {
-            StackViews()
+            TableViews()
         }
     }
 }
